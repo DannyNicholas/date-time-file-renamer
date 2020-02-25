@@ -4,11 +4,11 @@ Node script that renames files to match their last modified time-stamp.
 
 The aim of this script is to rename an entire directory of files. Each file's new filename will be constructed from the file's last modified timestamp.
 
-For example a file called `photo.jpeg` last modified on 23/06/2020 at 19:30 will be renamed to `2020_06_23-19_30_00.jpeg`.
+For example a file called `photo.jpeg` last modified on 23/06/2020 at 19:30 will be renamed to `2020-06-23 19_30_00.jpeg`.
 
 The renaming of any file will be aborted if another file already exists whose name matches the planned file rename. 
 
-In other words, a planned rename of a file to `2020_06_23-19_30_00.jpeg` will not happen if another file already exists with the same name. The original file will be left untouched.
+In other words, a planned rename of a file to `2020-06-23 19_30_00.jpeg` will not happen if another file already exists with the same name. The original file will be left untouched.
 
 **WARNING** - this script is destructive. Existing files will be replaced with the renamed version.
 

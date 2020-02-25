@@ -39,7 +39,7 @@ const extractTimestamp = (filePath) => {
 // see: https://www.npmjs.com/package/node-datetime
 const convertTimestamp = (utcTime) => {
     const dt = datetime.create(utcTime)
-    return dt.format('Y_m_d-H_M_S')
+    return dt.format('Y-m-d H_M_S')
 }
 
 
