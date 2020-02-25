@@ -1,9 +1,15 @@
 #!/usr/bin/env node
 
-const args = require('yargs').argv
+const yargs = require('yargs')
 const path = require('path')
 const fs = require('fs')
 var datetime = require('node-datetime')
+
+const options = yargs
+    .usage("Usage: --fileType <fileType> --directory <absolute-path-to-files>")
+    .option("f", {alias: "fileType", describe: "type of files to rename", type: "string", demandOption: true})
+    .option("d", {alias: "directory", describe: "absolute path to files being renamed", type: "string", demandOption: false})
+    .argv
 
 const processFile = (filePath, fileName, fileType) => {
     const utcTime = extractTimestamp(`${filePath}/${fileName}`)
@@ -42,14 +48,14 @@ const convertTimestamp = (utcTime) => {
 //
 
 // file type to be renamed
-if (!args.fileType) {
+if (!options.fileType) {
     console.log("Error: No fileType parameter has been supplied. For example, to rename text files, use --fileType=txt")
     process.exit(1);
 }
-const fileType = args.fileType
+const fileType = options.fileType
 
 // use provided directory path or default to target sub-directory
-const directoryPath = args.directory ? args.directory : path.join(__dirname, 'target')
+const directoryPath = options.directory ? options.directory : path.join(__dirname, 'target')
 console.log(`Scanning directory '${directoryPath}'`)
 
 // find files and iteratively rename them
