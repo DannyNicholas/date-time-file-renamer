@@ -54,8 +54,8 @@ if (!options.fileType) {
 }
 const fileType = options.fileType
 
-// use provided directory path or default to target sub-directory
-const directoryPath = options.directory ? options.directory : path.join(__dirname, 'target')
+// use provided directory path or default to files sub-directory
+const directoryPath = options.directory ? options.directory : path.join(__dirname, 'files')
 console.log(`Scanning directory '${directoryPath}'`)
 
 // find files and iteratively rename them
