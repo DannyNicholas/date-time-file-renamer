@@ -56,10 +56,13 @@ console.log(`Scanning directory '${directoryPath}'`)
 try{
     const files = fs.readdirSync(directoryPath)
         .filter(file => file.endsWith(`.${fileType}`))
-    console.log(`Found ${files.length} matching file/s.`)
-    files.forEach(file => processFile(directoryPath, file, fileType))
+    
     if (files.length > 0) {
+        console.log(`Found ${files.length} matching file/s with file type: ${fileType}`)
+        files.forEach(file => processFile(directoryPath, file, fileType))
         console.log(`File renaming completed.`)
+    } else {
+        console.log(`No matching files found with file type: ${fileType}`)
     }
 }
 catch(error) {
