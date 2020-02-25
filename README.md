@@ -6,6 +6,8 @@ The aim of this script is to rename an entire directory of files. Each file's ne
 
 For example a file called `photo.jpeg` last modified on 23/06/2020 at 19:30 will be renamed to `2020_06_23-19_30_00.jpeg`.
 
+The renaming of any file will be aborted if another file already exists whose name matches the planned file rename. In other words, a planned rename of a file to `2020_06_23-19_30_00.jpeg` will not happen if another file already exists with the same name. The original file will be left untouched.
+
 **WARNING** - this script is destructive. Existing files will be replaced with the renamed version. It is recommended you run this script on a copy of your files to avoid losing your original files.
 
 ### Install with Node Package Manager
