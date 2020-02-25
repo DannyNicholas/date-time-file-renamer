@@ -26,11 +26,11 @@ Additional parameters:
 
 `fileType` - **mandatory** file type of all files you want to rename (e.g `jpeg` or `txt`). Any files of other types will be ignored.
 
-`directory` - **optional** directory path containing the files you want to rename (e.g `/c/dev/files`). If absent the `target` subdirectory under this script will be chosen.
+`directory` - **optional** directory path containing the files you want to rename (e.g `/user/me/files`). If absent the `target` subdirectory under this script will be chosen.
 
 
 ### Run from command line
 
 ```
-./renamer.js --fileType=txt --directory=/c/dev/files/
+./renamer.js --fileType=txt --directory=/user/me/files/
 ```
