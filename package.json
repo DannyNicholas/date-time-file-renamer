@@ -1,0 +1,19 @@
+{
+  "name": "date-time-file-renamer",
+  "version": "1.0.0",
+  "description": "rename files to match their time-stamps",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DannyNicholas/date-time-file-renamer.git"
+  },
+  "author": "Danny Nicholas",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DannyNicholas/date-time-file-renamer/issues"
+  },
+  "homepage": "https://github.com/DannyNicholas/date-time-file-renamer#readme",
+  "dependencies": {
+    "node-datetime": "^2.1.2",
+    "yargs": "^15.1.0"
+  }
+}
