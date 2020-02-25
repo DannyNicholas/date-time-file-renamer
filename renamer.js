@@ -17,7 +17,7 @@ const renameFile = (filePath, oldFileName, newFileName) => {
     const oldFilePath = `${filePath}/${oldFileName}`
     const newFilePath = `${filePath}/${newFileName}`
     if (fs.existsSync(newFilePath)) {
-        console.log(`File ${newFileName} already exists. File renamed aborted. The original file ${oldFileName} has not been renamed.`)
+        console.log(`WARNING: file ${newFileName} already exists. File renamed aborted. The original file ${oldFileName} has not been renamed.`)
     } else {
         fs.renameSync(oldFilePath, newFilePath)
     }
@@ -26,8 +26,6 @@ const renameFile = (filePath, oldFileName, newFileName) => {
 // extract timestamp from file in provided filepath
 const extractTimestamp = (filePath) => {
     const stats = fs.statSync(filePath)
-    console.log(stats)
-    console.log(stats.mtime)
     return stats.mtime
 }
 
