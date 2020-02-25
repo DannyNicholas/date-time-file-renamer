@@ -17,7 +17,7 @@ const renameFile = (filePath, oldFileName, newFileName) => {
     const oldFilePath = `${filePath}/${oldFileName}`
     const newFilePath = `${filePath}/${newFileName}`
     if (fs.existsSync(newFilePath)) {
-        console.log(`File ${newFileName} already exists. File renamed aborted - please review manually.`)
+        console.log(`File ${newFileName} already exists. File renamed aborted. The original file ${oldFileName} has not been renamed.`)
     } else {
         fs.renameSync(oldFilePath, newFilePath)
     }
