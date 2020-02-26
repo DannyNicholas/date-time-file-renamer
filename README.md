@@ -12,7 +12,7 @@ In other words, a planned rename of a file to `2020-06-23 19_30_00.jpeg` will no
 
 **WARNING** - this script is destructive. Existing files will be replaced with the renamed version.
 
-Use at your own risk. It is recommended you run this script on a copy of your files to avoid losing or corrupting your original files. I can not take any responsibility for any damage to your files by using this script.
+It is recommended you run this script on a copy of your files to avoid losing or corrupting your original files. Use at your own risk so please be careful.
 
 ### Install with Node Package Manager
 
