@@ -38,3 +38,18 @@ Additional parameters:
 ```
 ./renamer.js --fileType=txt --directory=/user/me/files/
 ```
+
+
+### Additional Timestamp Updater
+
+In order to repeat this process in reverse, a `timestamper` script has been included that will update each file's time-stamp to match the file name (assuming it already matches the 'YYYY-MM-DD HH_MM_SS' file name pattern).
+
+This may be useful if a file has been modified and the original time-stamp has been reset.
+
+For example, a file called `2020-06-23 19_30_00.jpeg` will be given a timestamp of `23/06/1972 19:30:00`.
+
+Running the process is similar the one described above. For example:
+
+```
+node timestamper.js --fileType=txt --directory=/c/dev/files/
+```
