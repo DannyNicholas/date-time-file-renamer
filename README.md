@@ -40,16 +40,30 @@ Additional parameters:
 ```
 
 
-### Additional Timestamp Updater
+### Timestamp Updater
 
 In order to repeat this process in reverse, a `timestamper` script has been included that will update each file's time-stamp to match the file name (assuming it already matches the 'YYYY-MM-DD HH_MM_SS' file name pattern).
 
 This may be useful if a file has been modified and the original time-stamp has been reset.
 
-For example, a file called `2020-06-23 19_30_00.jpeg` will be given a timestamp of `23/06/1972 19:30:00`.
+For example, a file called `2020-06-23 19_30_00.jpeg` will be given a timestamp of `23/06/2020 19:30:00`.
 
 Running the process is similar the one described above. For example:
 
 ```
 node timestamper.js --fileType=txt --directory=/c/dev/files/
+```
+
+### Media Timestamp Updater
+
+When working with media files such as `MP4`, it is also desirable to set the Media `creation_date` meta-data.
+
+The media timestamper works in a similar way to the above timestamper but also sets the `creation_date` meta-data. This is achieved using `ffmpeg`. Please ensure this is available from the command line. See [ffmpeg documentation](https://www.ffmpeg.org/).
+
+Since `ffmpeg` creates a new file, the media timestamper script requires an additional `output` directory to store the created files. The original files will be left untouched.
+
+Running the process is similar the one described above. For example:
+
+```
+node media-timestamper.js --fileType=mp4 --directory=/c/dev/files/ --output=/c/dev/timestamped-files/
 ```
