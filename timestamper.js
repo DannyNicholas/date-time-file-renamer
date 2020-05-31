@@ -28,16 +28,6 @@ const processFile = (filePath, fileName, fileType) => {
     }
 }
 
-const renameFile = (filePath, oldFileName, newFileName) => {
-    const oldFilePath = `${filePath}/${oldFileName}`
-    const newFilePath = `${filePath}/${newFileName}`
-    if (fs.existsSync(newFilePath)) {
-        console.log(`WARNING: file ${newFileName} already exists. File renamed aborted. The original file ${oldFileName} has not been renamed.`)
-    } else {
-        fs.renameSync(oldFilePath, newFilePath)
-    }
-}
-
 //
 // Script Start
 //
