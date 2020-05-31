@@ -47,11 +47,11 @@ const fileType = options.fileType
 const directoryPath = options.directory
 const outputDirectoryPath = options.output
 if (!fs.existsSync(directoryPath)) {
-    console.log(`ERROR: input directory ${directoryPath} does not exist. Movie trimming aborted.`)
+    console.log(`ERROR: input directory ${directoryPath} does not exist. Timestamp updates aborted.`)
     process.exit(1)
 }
 if (!fs.existsSync(outputDirectoryPath)) {
-    console.log(`ERROR: output directory ${outputDirectoryPath} does not exist. Movie trimming aborted.`)
+    console.log(`ERROR: output directory ${outputDirectoryPath} does not exist. Timestamp updates aborted.`)
     process.exit(1);
 }
 
