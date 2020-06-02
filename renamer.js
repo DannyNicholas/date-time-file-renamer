@@ -9,12 +9,18 @@ const options = yargs
     .usage("Usage: --fileType <fileType> --directory <absolute-path-to-files>")
     .option("f", {alias: "fileType", describe: "type of files to rename", type: "string", demandOption: true})
     .option("d", {alias: "directory", describe: "absolute path to files being renamed", type: "string", demandOption: false})
+    .option("p", {alias: "preserve", describe: "if 'on', preserves the original filename within the renamed file", type: "string", demandOption: false})
     .argv
 
-const processFile = (filePath, fileName, fileType) => {
+const processFile = (filePath, fileName, fileType, preserve) => {
     const utcTime = extractTimestamp(`${filePath}/${fileName}`)
     const formattedTime = convertTimestamp(utcTime)
-    const formattedFileName = `${formattedTime}.${fileType}`
+    
+    // if preserve is on include original filename within renamed file i.e. 'YYYY-MM-DD HH_MM_SS(filename)'
+    const fileNameWithoutExt = path.parse(fileName).name
+    const createdFilename = preserve ? `${formattedTime}(${fileNameWithoutExt})` : `${formattedTime}`
+
+    const formattedFileName = `${createdFilename}.${fileType}`
     console.log(`Renaming file ${fileName} to ${formattedFileName}`)
     renameFile(filePath, fileName, formattedFileName)
 }
@@ -22,6 +28,7 @@ const processFile = (filePath, fileName, fileType) => {
 const renameFile = (filePath, oldFileName, newFileName) => {
     const oldFilePath = `${filePath}/${oldFileName}`
     const newFilePath = `${filePath}/${newFileName}`
+
     if (fs.existsSync(newFilePath)) {
         console.log(`WARNING: file ${newFileName} already exists. File renamed aborted. The original file ${oldFileName} has not been renamed.`)
     } else {
@@ -56,6 +63,7 @@ const fileType = options.fileType
 
 // use provided directory path or default to files sub-directory
 const directoryPath = options.directory ? options.directory : path.join(__dirname, 'files')
+const preserve = (options.preserve === 'on')
 console.log(`Scanning directory '${directoryPath}'`)
 
 // find files and iteratively rename them
@@ -65,7 +73,7 @@ try{
     
     if (files.length > 0) {
         console.log(`Found ${files.length} matching file/s with file type: ${fileType}`)
-        files.forEach(file => processFile(directoryPath, file, fileType))
+        files.forEach(file => processFile(directoryPath, file, fileType, preserve))
         console.log(`File renaming completed.`)
     } else {
         console.log(`No matching files found with file type: ${fileType}`)
