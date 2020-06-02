@@ -32,11 +32,13 @@ Additional parameters:
 
 `directory` - **optional** absolute path to the directory containing the files you want to rename (e.g `/user/me/files`). If absent the `files` subdirectory relative to the location of this script will be chosen.
 
+`preserve` - **optional** if set to 'on' then include the original filename in the renamed file. This will appear after the timestamp in brackets. For example a file called `photo.jpeg` last modified on 23/06/2020 at 19:30 will be renamed to `2020-06-23 19_30_00(photo).jpeg`.
+
 
 ### Run from command line
 
 ```
-./renamer.js --fileType=txt --directory=/user/me/files/
+./renamer.js --fileType=txt --directory=/user/me/files/ --preserve=on
 ```
 
 
@@ -54,6 +56,17 @@ Running the process is similar the one described above. For example:
 node timestamper.js --fileType=txt --directory=/c/dev/files/
 ```
 
+#### Restoring Original Filename
+
+If the original filname was preserved in the renamed file as described in the `renamer` script, it is possible to restore the file back to it's original filename using `restore=on`
+
+Running the process is similar the one described above. For example:
+
+```
+node timestamper.js --fileType=jpg --directory=/c/dev/files/ --restore=on
+```
+When run on `2020-06-23 19_30_00(photo).jpg`, the file will be restored back to a filename of `photo.jpg`.
+
 ### Media Timestamp Updater
 
 When working with media files such as `MP4`, it is also desirable to set the Media `creation_date` meta-data.
@@ -67,3 +80,14 @@ Running the process is similar the one described above. For example:
 ```
 node media-timestamper.js --fileType=mp4 --directory=/c/dev/files/ --output=/c/dev/timestamped-files/
 ```
+
+#### Restoring Original Filename
+
+If the original filname was preserved in the renamed file as described in the `renamer` script, it is possible to restore the file back to it's original filename using `restore=on`
+
+Running the process is similar the one described above. For example:
+
+```
+node media-timestamper.js --fileType=mp4 --directory=/c/dev/files/ --output=/c/dev/timestamped-files/ --restore=on
+```
+When run on `2020-06-23 19_30_00(movie).mp4`, the file will be restored back to a filename of `movie.mp4`.

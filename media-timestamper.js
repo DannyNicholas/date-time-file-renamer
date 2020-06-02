@@ -10,19 +10,30 @@ const options = yargs
     .option("f", {alias: "fileType", describe: "type of files to timestamp", type: "string", demandOption: true})
     .option("d", {alias: "directory", describe: "absolute path to files being timestamped", type: "string", demandOption: true})
     .option("o", {alias: "output", describe: "absolute path to timestamped output files", type: "string", demandOption: true})
+    .option("r", {alias: "restore", describe: "if 'on' restores the original preserved filename", type: "string", demandOption: false})
     .argv
 
-const processFile = (filePath, fileName, outputDirectory) => {
-    console.log(`Proceessing ${fileName}`)
+const processFile = (filePath, fileName, outputDirectory, restore) => {
+    console.log(`Processing ${fileName}`)
+
+     // if restore is on then attempt to extract original filename
+    // must match 'YYYY-MM-DD HH_MM_SS(filename)'
+    let originalFileNameWithType;
+    if (restore && fileName.match(/\d+-\d+-\d+ \d+_\d+_\d+\(\S+\)/g)) {
+        const orignalFileNameWithBrackets = fileName.match(/\(\S+\)/g).map(String);
+        const orignalFileName = orignalFileNameWithBrackets[0].replace(/\(/g, '').replace(/\)/g, '');
+        originalFileNameWithType = `${orignalFileName}.${fileType}`;
+        console.log(`file '${fileName}' will be created with its original filname of '${originalFileNameWithType}'.`)
+    }
 
     // if filename matches our expected date pattern,
     // then convert date pattern back into a date-time and use this to set the file's timestamp.
     if (fileName.match(/\d+-\d+-\d+ \d+_\d+_\d+/g)) {
         const numbers = fileName.match(/\d+/g).map(String);
         const dt = datetime.create(`${numbers[0]}-${numbers[1]}-${numbers[2]} ${numbers[3]}:${numbers[4]}:${numbers[5]}`);
-
+       
         const fullFilePath = `${filePath}/${fileName}`
-        const outPath = `${outputDirectory}/${fileName}`
+        const outPath = originalFileNameWithType ? `${outputDirectory}/${originalFileNameWithType}` : `${outputDirectory}/${fileName}`
         require('child_process').execSync(`ffmpeg -i '${fullFilePath}' -c copy -map 0 -metadata creation_time='${dt.format('Y-m-d H:M:S')}' '${outPath}' -loglevel warning`)
 
         // set timestamps on created file
@@ -54,6 +65,7 @@ if (!fs.existsSync(outputDirectoryPath)) {
     console.log(`ERROR: output directory ${outputDirectoryPath} does not exist. Timestamp updates aborted.`)
     process.exit(1);
 }
+const restore = (options.restore === 'on')
 
 console.log(`Scanning directory '${directoryPath}'`)
 
@@ -64,7 +76,7 @@ try{
     
     if (files.length > 0) {
         console.log(`Found ${files.length} matching file/s with file type: ${fileType}`)
-        files.forEach(file => processFile(directoryPath, file, outputDirectoryPath))
+        files.forEach(file => processFile(directoryPath, file, outputDirectoryPath, restore))
         console.log(`File updates completed.`)
     } else {
         console.log(`No matching files found with file type: ${fileType}`)
